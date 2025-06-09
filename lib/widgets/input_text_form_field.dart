@@ -25,7 +25,7 @@ class _InputTextFormFieldState extends State<InputTextFormField> {
   Widget build(BuildContext context) {
     return TextFormField(
       controller: widget.controller,
-      obscureText: widget.isSecureField,
+      obscureText: widget.isSecureField && !_passwordVisible,
       enableSuggestions: !widget.isSecureField,
       autocorrect: widget.autocorrect,
       validator: widget.validation,
