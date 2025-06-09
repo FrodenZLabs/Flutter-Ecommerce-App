@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_ecommerce_app/presentation/views/authentication/signin_view.dart';
+import 'package:flutter_ecommerce_app/presentation/views/authentication/signup_view.dart';
 import 'package:sizer/sizer.dart';
 
 void main() {
@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
       return MaterialApp(
           title: "Labs Shop",
           debugShowCheckedModeBanner: false,
-          home: SigninView()
+          home: SignupView()
       );
     });
   }

@@ -4,16 +4,19 @@ import 'package:flutter_ecommerce_app/core/constant/validators.dart';
 import 'package:flutter_ecommerce_app/widgets/input_form_button.dart';
 import 'package:flutter_ecommerce_app/widgets/input_text_form_field.dart';
 
-class SigninView extends StatefulWidget {
-  const SigninView({super.key});
+class SignupView extends StatefulWidget {
+  const SignupView({super.key});
 
   @override
-  State<SigninView> createState() => _SigninViewState();
+  State<SignupView> createState() => _SignupViewState();
 }
 
-class _SigninViewState extends State<SigninView> {
+class _SignupViewState extends State<SignupView> {
+  final TextEditingController firstNameController = TextEditingController();
+  final TextEditingController lastNameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+  final TextEditingController confirmPasswordController = TextEditingController();
   final _formKey = GlobalKey();
 
   @override
@@ -36,11 +39,27 @@ class _SigninViewState extends State<SigninView> {
                   ),
                   const SizedBox(height: 20),
                   const Text(
-                    "Please enter your email address and password to sign-in",
+                    "Please enter your email address to create an account",
                     textAlign: TextAlign.center,
                     style: TextStyle(fontSize: 16, color: Colors.black54),
                   ),
                   const SizedBox(height: 30),
+                  InputTextFormField(
+                    controller: firstNameController,
+                    textInputAction: TextInputAction.next,
+                    hint: "First Name",
+                    validation: (String? val) =>
+                        Validators.validateField(val, "First Name"),
+                  ),
+                  const SizedBox(height: 12),
+                  InputTextFormField(
+                    controller: lastNameController,
+                    textInputAction: TextInputAction.next,
+                    hint: "Last Name",
+                    validation: (String? val) =>
+                        Validators.validateField(val, "Last Name"),
+                  ),
+                  const SizedBox(height: 12),
                   InputTextFormField(
                     controller: emailController,
                     textInputAction: TextInputAction.next,
@@ -51,41 +70,39 @@ class _SigninViewState extends State<SigninView> {
                   const SizedBox(height: 12),
                   InputTextFormField(
                     controller: passwordController,
-                    textInputAction: TextInputAction.go,
+                    textInputAction: TextInputAction.next,
                     hint: "Password",
                     isSecureField: true,
                     validation: (String? val) =>
                         Validators.validateField(val, "Password"),
                   ),
-                  const SizedBox(height: 10),
-                  Align(
-                    alignment: Alignment.centerRight,
-                    child: InkWell(
-                      onTap: () {}, // Add logic
-                      child: const Text(
-                        "Forgot Password?",
-                        style: TextStyle(fontSize: 14),
-                      ),
-                    ),
+                  const SizedBox(height: 12),
+                  InputTextFormField(
+                    controller: confirmPasswordController,
+                    textInputAction: TextInputAction.go,
+                    hint: "Confirm Password",
+                    isSecureField: true,
+                    validation: (String? val) =>
+                        Validators.validatePasswordMatch(val, passwordController.text),
                   ),
                   const SizedBox(height: 24),
                   InputFormButton(
                     onClick: () {},
                     color: Colors.black87,
-                    titleText: "Sign In",
+                    titleText: "Register",
                   ),
                   const SizedBox(height: 24),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       const Text(
-                        "Don't have an account! ",
+                        "Already have an account! ",
                         style: TextStyle(fontSize: 14),
                       ),
                       InkWell(
                         onTap: () {}, // Add logic
                         child: const Text(
-                          "Register",
+                          "Sign In",
                           style: TextStyle(
                             fontSize: 14,
                             color: Colors.black,
