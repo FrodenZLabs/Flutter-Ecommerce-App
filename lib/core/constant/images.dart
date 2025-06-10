@@ -1,5 +1,5 @@
-const String kAppLogo = "assets/other_images/user.png";
-const String kUserAvatar = "assets/other_images/logo.png";
+const String kAppLogo = "assets/other_images/logo.png";
+const String kUserAvatar = "assets/other_images/user.png";
 
 // Status Image
 const String kEmptyCart = "assets/status_image/empty-cart.png";

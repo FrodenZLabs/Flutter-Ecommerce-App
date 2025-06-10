@@ -84,10 +84,11 @@ class _SignupViewState extends State<SignupView> {
                     isSecureField: true,
                     validation: (String? val) =>
                         Validators.validatePasswordMatch(val, passwordController.text),
+                    // onFieldSubmitted: (_) => _onSignUp(context),
                   ),
                   const SizedBox(height: 24),
                   InputFormButton(
-                    onClick: () {},
+                    onClick: () => {},
                     color: Colors.black87,
                     titleText: "Register",
                   ),
@@ -121,4 +122,11 @@ class _SignupViewState extends State<SignupView> {
       ),
     );
   }
+
+  // void _onSignUp(BuildContext context){
+  //   if(_formKey.currentState!.validate()){
+  //     return;
+  //   }
+  // }
 }
+
