@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_ecommerce_app/core/constant/images.dart';
-import 'package:flutter_ecommerce_app/widgets/alert_card.dart';
-import 'package:flutter_ecommerce_app/widgets/input_form_button.dart';
+import 'package:flutter_ecommerce_app/presentation/widgets/alert_card.dart';
+import 'package:flutter_ecommerce_app/presentation/widgets/input_form_button.dart';
 import 'package:sizer/sizer.dart';
 
 class HomeView extends StatefulWidget {

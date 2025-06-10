@@ -3,7 +3,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_ecommerce_app/domain/entities/product/price_tag.dart';
 import 'package:flutter_ecommerce_app/domain/entities/product/product.dart';
-import 'package:flutter_ecommerce_app/widgets/input_form_button.dart';
+import 'package:flutter_ecommerce_app/presentation/widgets/input_form_button.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class ProductDetailsView extends StatefulWidget {

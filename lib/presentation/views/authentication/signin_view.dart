@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_ecommerce_app/core/constant/images.dart';
 import 'package:flutter_ecommerce_app/core/constant/validators.dart';
-import 'package:flutter_ecommerce_app/widgets/input_form_button.dart';
-import 'package:flutter_ecommerce_app/widgets/input_text_form_field.dart';
+import 'package:flutter_ecommerce_app/presentation/widgets/input_form_button.dart';
+import 'package:flutter_ecommerce_app/presentation/widgets/input_text_form_field.dart';
 
 class SigninView extends StatefulWidget {
   const SigninView({super.key});

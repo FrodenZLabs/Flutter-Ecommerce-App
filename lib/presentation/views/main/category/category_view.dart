@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_ecommerce_app/widgets/category_card.dart';
+import 'package:flutter_ecommerce_app/presentation/widgets/category_card.dart';
 
 class CategoryView extends StatefulWidget {
   const CategoryView({super.key});
