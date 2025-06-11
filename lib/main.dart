@@ -3,7 +3,7 @@ import 'package:flutter_ecommerce_app/domain/entities/cart/cart_item.dart';
 import 'package:flutter_ecommerce_app/domain/entities/category/category.dart';
 import 'package:flutter_ecommerce_app/domain/entities/product/price_tag.dart';
 import 'package:flutter_ecommerce_app/domain/entities/product/product.dart';
-import 'package:flutter_ecommerce_app/presentation/views/order_checkout/order_checkout_view.dart';
+import 'package:flutter_ecommerce_app/presentation/views/main/cart/cart_view.dart';
 import 'package:sizer/sizer.dart';
 
 void main() {
@@ -15,44 +15,36 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Dummy product and price tag setup
     final Product sampleProduct = Product(
       id: '1',
-      name: 'Sample Laptop',
-      description: 'A powerful laptop for professionals and students.',
+      name: 'Bluetooth Headphones',
+      description: 'High-quality over-ear headphones with noise cancellation.',
       priceTags: [
-        PriceTag(id: 'pt1', name: 'Standard', price: 1000.0),
-        PriceTag(id: 'pt2', name: 'Student Discount', price: 850.0),
+        PriceTag(id: 'price1', name: 'Standard', price: 3499.0),
       ],
       categories: [
-        Category(id: 'c1', name: 'Electronics', image: 'assets/status_image/empty.png'),
+        Category(id: 'cat1', name: 'Audio', image: ''),
       ],
       images: [
-        'assets/status_image/empty.png',
+        'https://via.placeholder.com/150' // Replace with your asset or network image
       ],
       createdAt: DateTime.now(),
       updatedAt: DateTime.now(),
     );
 
-// Dummy cart items
-    final List<CartItem> items = [
-      CartItem(
-        id: 'ci1',
+    final List<CartItem> items = List.generate(5, (index) {
+      return CartItem(
+        id: 'item_$index',
         product: sampleProduct,
-        priceTag: sampleProduct.priceTags[0], // Standard price
-      ),
-      CartItem(
-        id: 'ci2',
-        product: sampleProduct,
-        priceTag: sampleProduct.priceTags[1], // Discounted price
-      ),
-    ];
+        priceTag: sampleProduct.priceTags.first,
+      );
+    });
 
     return Sizer(builder: (context, orientation, deviceType){
       return MaterialApp(
           title: "Labs Shop",
           debugShowCheckedModeBanner: false,
-          home: OrderCheckoutView(items: items)
+          home: CartView(items: items)
       );
     });
   }
