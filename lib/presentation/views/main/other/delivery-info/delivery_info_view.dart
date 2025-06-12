@@ -1,16 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_ecommerce_app/core/constant/images.dart';
-import 'package:flutter_ecommerce_app/presentation/widgets/delivery_info_card.dart';
 import 'package:flutter_ecommerce_app/presentation/widgets/delivery_info_form.dart';
 
-class DeliveryInfo extends StatefulWidget {
-  const DeliveryInfo({super.key});
+class DeliveryInfoView extends StatefulWidget {
+  const DeliveryInfoView({super.key});
 
   @override
-  State<DeliveryInfo> createState() => _DeliveryInfoState();
+  State<DeliveryInfoView> createState() => _DeliveryInfoState();
 }
 
-class _DeliveryInfoState extends State<DeliveryInfo> {
+class _DeliveryInfoState extends State<DeliveryInfoView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

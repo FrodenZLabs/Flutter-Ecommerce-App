@@ -41,6 +41,8 @@ dependencies:
   equatable: ^2.0.7
   smooth_page_indicator: ^1.2.1
   flutter_snake_navigationbar: ^0.6.1
+  internet_connection_checker: ^1.0.0+1
+  dartz: ^0.10.1
 
 dev_dependencies:
   flutter_test:
