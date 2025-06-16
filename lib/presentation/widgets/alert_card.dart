@@ -9,14 +9,17 @@ class AlertCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Image.asset(image),
-        if(message != null) Text(message!),
-        if(onClick != null) IconButton(onPressed: onClick, icon: Icon(Icons.refresh)),
-        SizedBox(height: MediaQuery.of(context).size.height * 0.1,)
-      ],
+    return SingleChildScrollView(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Image.asset(image),
+          if (message != null) Text(message!),
+          if (onClick != null)
+            IconButton(onPressed: onClick, icon: Icon(Icons.refresh)),
+          SizedBox(height: MediaQuery.of(context).size.height * 0.1),
+        ],
+      ),
     );
   }
 }

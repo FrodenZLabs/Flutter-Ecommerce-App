@@ -4,20 +4,12 @@ import 'package:flutter_ecommerce_app/core/usecases/usecase.dart';
 import 'package:flutter_ecommerce_app/domain/entities/user/user.dart';
 import 'package:flutter_ecommerce_app/domain/repositories/user_repository.dart';
 
-class SignInUsecase implements Usecase<User, SignInParams>{
+class GetLocalUserUsecase implements Usecase<User, NoParams> {
   final UserRepository repository;
-
-  SignInUsecase(this.repository);
+  GetLocalUserUsecase(this.repository);
 
   @override
-  Future<Either<Failure, User>> call(SignInParams params) async {
-    return await repository.signIn(params);
+  Future<Either<Failure, User>> call(NoParams params) async {
+    return await repository.getLocalUser();
   }
-}
-
-class SignInParams {
-  final String username;
-  final String password;
-
-  const SignInParams({required this.username, required this.password});
 }

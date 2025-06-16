@@ -30,7 +30,7 @@ class _UserProfileViewState extends State<UserProfileView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+        // backgroundColor: Theme.of(context).primaryColor,
         title: const Text("Profile"),
       ),
       body: Padding(
@@ -66,7 +66,7 @@ class _UserProfileViewState extends State<UserProfileView> {
       ),
       bottomNavigationBar: SafeArea(
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
             child: InputFormButton(
               onClick: (){},
               titleText: "Update",
