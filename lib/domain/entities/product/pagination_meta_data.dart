@@ -8,6 +8,5 @@ class PaginationMetaData extends Equatable {
   const PaginationMetaData({required this.limit, required this.pageSize, required this.total});
 
   @override
-  // TODO: implement props
   List<Object?> get props => [limit, pageSize, total];
 }
