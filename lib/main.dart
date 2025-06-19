@@ -4,7 +4,12 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_ecommerce_app/core/constant/strings.dart';
 import 'package:flutter_ecommerce_app/core/router/app_router.dart';
 import 'package:flutter_ecommerce_app/core/theme/app-theme.dart';
+import 'package:flutter_ecommerce_app/domain/usecases/product/get_product_usecase.dart';
+import 'package:flutter_ecommerce_app/presentation/blocs/cart/cart_bloc.dart';
+import 'package:flutter_ecommerce_app/presentation/blocs/category/category_bloc.dart';
+import 'package:flutter_ecommerce_app/presentation/blocs/filter/filter_cubit.dart';
 import 'package:flutter_ecommerce_app/presentation/blocs/home/navbar_cubit.dart';
+import 'package:flutter_ecommerce_app/presentation/blocs/product/product_bloc.dart';
 import 'package:flutter_ecommerce_app/presentation/blocs/user/user_bloc.dart';
 import 'package:http/http.dart' as http;
 import 'package:oktoast/oktoast.dart';
@@ -27,7 +32,12 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
         providers: [
           BlocProvider(create: (context) => NavbarCubit()),
+          BlocProvider(create: (context) => FilterCubit()),
           BlocProvider(create: (context) => di.sl<UserBloc>()..add(CheckUser())),
+          BlocProvider(create: (context) => di.sl<ProductBloc>()..add(const GetProducts(FilterProductParams()))),
+          BlocProvider(create: (context) => di.sl<CategoryBloc>()..add(const GetCategories())),
+          BlocProvider(create: (context) => di.sl<CartBloc>()..add(const GetCart())),
+
         ],
         child: OKToast(
             child: Sizer(

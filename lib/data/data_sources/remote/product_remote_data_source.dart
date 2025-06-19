@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:flutter_ecommerce_app/core/constant/strings.dart';
 import 'package:flutter_ecommerce_app/core/error/exceptions.dart';
 import 'package:flutter_ecommerce_app/data/models/product/product_response_model.dart';
@@ -20,7 +19,7 @@ class ProductRemoteDataSourceImpl implements ProductRemoteDataSource {
   );
 
   Future<ProductResponseModel> _getProductFromUrl(String url) async {
-    final response = await client.post(Uri.parse(url),
+    final response = await client.get(Uri.parse(url),
       headers: {
         "Content-Type": "application/json",
       }

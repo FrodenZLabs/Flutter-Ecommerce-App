@@ -32,9 +32,9 @@ class ProductModel extends Product {
     "name": name,
     "description": description,
     "priceTags": List<dynamic>.from(
-        (priceTags) as List<PriceTagModel>).map((x) => x.toJson()),
+        (priceTags as List<PriceTagModel>).map((x) => x.toJson())),
     "categories": List<dynamic>.from(
-        (categories) as List<CategoryModel>).map((x) => x.toJson()),
+        (categories as List<CategoryModel>).map((x) => x.toJson())),
     "images": List<dynamic>.from(images.map((x) => x)),
     "createdAt": createdAt.toIso8601String(),
     "updatedAt": updatedAt.toIso8601String()

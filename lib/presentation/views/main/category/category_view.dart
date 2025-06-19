@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_ecommerce_app/presentation/blocs/category/category_bloc.dart';
 import 'package:flutter_ecommerce_app/presentation/widgets/category_card.dart';
 
 class CategoryView extends StatefulWidget {
@@ -24,8 +26,12 @@ class _CategoryViewState extends State<CategoryView> {
               child: TextField(
                 controller: _textEditingController,
                 autofocus: false,
-                onSubmitted: (val) {},
-                onChanged: (val) => setState(() {}),
+                onSubmitted: (val) {
+                  context.read<CategoryBloc>().add(FilterCategories(val));
+                },
+                onChanged: (val) => setState(() {
+                  context.read<CategoryBloc>().add(FilterCategories(val));
+                }),
                 decoration: InputDecoration(
                   contentPadding: const EdgeInsets.only(left: 20, bottom: 22, top: 22),
                   prefixIcon: const Padding(
@@ -36,7 +42,12 @@ class _CategoryViewState extends State<CategoryView> {
                       ? Padding(
                     padding: const EdgeInsets.only(right: 8),
                     child: IconButton(
-                        onPressed: (){},
+                        onPressed: (){
+                          setState(() {
+                            _textEditingController.clear();
+                            context.read<CategoryBloc>().add(const FilterCategories(''));
+                          });
+                        },
                         icon: Icon(Icons.clear)
                     ),
                   ) : null,
@@ -56,12 +67,16 @@ class _CategoryViewState extends State<CategoryView> {
             ),
             ),
             Expanded(
-                child: ListView.builder(
-                  physics: const BouncingScrollPhysics(),
-                    itemCount: 10,
-                    padding: EdgeInsets.only(top: 14,
-                    bottom: (80 + MediaQuery.of(context).padding.bottom)),
-                    itemBuilder: (context, index) => CategoryCard()
+                child: BlocBuilder<CategoryBloc, CategoryState>(
+                  builder: (context, state) {
+                    return ListView.builder(
+                      physics: const BouncingScrollPhysics(),
+                        itemCount: (state is CategoryLoading) ? 10 : state.categories.length,
+                        padding: EdgeInsets.only(top: 14,
+                        bottom: (80 + MediaQuery.of(context).padding.bottom)),
+                        itemBuilder: (context, index) => (state is CategoryLoading) ? const CategoryCard() : CategoryCard(category: state.categories[index],)
+                    );
+                  }
                 )
             )
           ],

@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_ecommerce_app/core/error/failures.dart';
@@ -21,6 +22,7 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
   void _onLoadProducts(GetProducts event, Emitter<ProductState> emit) async {
     try {
       emit(ProductLoading(products: const [], metaData: state.metaData, params: event.params));
+
       final result = await _getProductUsecase(event.params);
       result.fold(
               (failure) => emit(ProductError(products: state.products, metaData: state.metaData, params: event.params, failure: failure)),

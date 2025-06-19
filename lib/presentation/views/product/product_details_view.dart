@@ -1,8 +1,12 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_ecommerce_app/core/router/app_router.dart';
+import 'package:flutter_ecommerce_app/domain/entities/cart/cart_item.dart';
 import 'package:flutter_ecommerce_app/domain/entities/product/price_tag.dart';
 import 'package:flutter_ecommerce_app/domain/entities/product/product.dart';
+import 'package:flutter_ecommerce_app/presentation/blocs/cart/cart_bloc.dart';
 import 'package:flutter_ecommerce_app/presentation/widgets/input_form_button.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
@@ -137,7 +141,7 @@ class _ProductDetailsViewState extends State<ProductDetailsView> {
                   child: Column(
                     children: [
                       Text(priceTag.name),
-                      Text(priceTag.price.toString()),
+                      Text("Kshs. ${priceTag.price.toString()}"),
                     ],
                   ),
                 ),
@@ -189,7 +193,12 @@ class _ProductDetailsViewState extends State<ProductDetailsView> {
             SizedBox(
               width: 120,
               child: InputFormButton(
-                onClick: (){},
+                onClick: (){
+                  context.read<CartBloc>().add(AddProduct(
+                      cartItem: CartItem(product: widget.product, priceTag: _selectedPriceTag)
+                  ));
+                  Navigator.of(context).pop();
+                },
                 titleText: "Add to Cart",
                 color: Colors.black87,
               ),
@@ -198,7 +207,11 @@ class _ProductDetailsViewState extends State<ProductDetailsView> {
             SizedBox(
               width: 90,
               child: InputFormButton(
-                onClick: (){},
+                onClick: (){
+                  Navigator.of(context).pushNamed(AppRouter.orderCheckout, arguments: [
+                    CartItem(product: widget.product, priceTag: _selectedPriceTag)
+                  ]);
+                },
                 titleText: "Buy",
                 color: Colors.black87,
               ),
