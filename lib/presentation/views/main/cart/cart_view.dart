@@ -113,7 +113,7 @@ class _CartViewState extends State<CartView> {
                 }
                 return Positioned(
                   bottom: (MediaQuery.of(context).padding.bottom + 90),
-                    top: 0,
+                    left: 0,
                     right: 0,
                     child: Container(
                       color: Colors.white,
@@ -131,7 +131,7 @@ class _CartViewState extends State<CartView> {
                                   style: const TextStyle(fontSize: 16),
                                 ),
                                 Text(
-                                  "${state.cart.fold(0.0, (previousValue ,element) => (element.priceTag.price + previousValue))}",
+                                  "Kshs. ${state.cart.fold(0.0, (previousValue ,element) => (element.priceTag.price + previousValue))}",
                                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
                                 )
                               ],
