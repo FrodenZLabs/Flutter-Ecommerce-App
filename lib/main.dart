@@ -7,13 +7,16 @@ import 'package:flutter_ecommerce_app/core/theme/app-theme.dart';
 import 'package:flutter_ecommerce_app/domain/usecases/product/get_product_usecase.dart';
 import 'package:flutter_ecommerce_app/presentation/blocs/cart/cart_bloc.dart';
 import 'package:flutter_ecommerce_app/presentation/blocs/category/category_bloc.dart';
+import 'package:flutter_ecommerce_app/presentation/blocs/delivery_info/delivery_info_action/delivery_info_action_cubit.dart';
+import 'package:flutter_ecommerce_app/presentation/blocs/delivery_info/delivery_info_fetch/delivery_info_fetch_cubit.dart';
 import 'package:flutter_ecommerce_app/presentation/blocs/filter/filter_cubit.dart';
 import 'package:flutter_ecommerce_app/presentation/blocs/home/navbar_cubit.dart';
+import 'package:flutter_ecommerce_app/presentation/blocs/order/order_fetch/order_fetch_cubit.dart';
 import 'package:flutter_ecommerce_app/presentation/blocs/product/product_bloc.dart';
 import 'package:flutter_ecommerce_app/presentation/blocs/user/user_bloc.dart';
-import 'package:http/http.dart' as http;
 import 'package:oktoast/oktoast.dart';
 import 'package:sizer/sizer.dart';
+
 import 'core/services/services_locator.dart' as di;
 
 void main() async {
@@ -30,29 +33,45 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
-        providers: [
-          BlocProvider(create: (context) => NavbarCubit()),
-          BlocProvider(create: (context) => FilterCubit()),
-          BlocProvider(create: (context) => di.sl<UserBloc>()..add(CheckUser())),
-          BlocProvider(create: (context) => di.sl<ProductBloc>()..add(const GetProducts(FilterProductParams()))),
-          BlocProvider(create: (context) => di.sl<CategoryBloc>()..add(const GetCategories())),
-          BlocProvider(create: (context) => di.sl<CartBloc>()..add(const GetCart())),
-
-        ],
-        child: OKToast(
-            child: Sizer(
-                builder: (context, orientation, deviceType) {
-                  return MaterialApp(
-                    debugShowCheckedModeBanner: false,
-                    initialRoute: AppRouter.home,
-                    onGenerateRoute: AppRouter.onGenerateRoute,
-                    title: appTitle,
-                    theme: AppTheme.lightTheme,
-                    builder: EasyLoading.init(),
-                  );
-                }
-            )
-        )
+      providers: [
+        BlocProvider(create: (context) => NavbarCubit()),
+        BlocProvider(create: (context) => FilterCubit()),
+        BlocProvider(create: (context) => di.sl<UserBloc>()..add(CheckUser())),
+        BlocProvider(
+          create: (context) =>
+              di.sl<ProductBloc>()
+                ..add(const GetProducts(FilterProductParams())),
+        ),
+        BlocProvider(
+          create: (context) =>
+              di.sl<CategoryBloc>()..add(const GetCategories()),
+        ),
+        BlocProvider(
+          create: (context) => di.sl<CartBloc>()..add(const GetCart()),
+        ),
+        BlocProvider(
+          create: (context) => di.sl<OrderFetchCubit>()..getOrders(),
+        ),
+        BlocProvider(create: (context) => di.sl<DeliveryInfoActionCubit>()),
+        BlocProvider(
+          create: (context) =>
+              di.sl<DeliveryInfoFetchCubit>()..fetchDeliveryInfo(),
+        ),
+      ],
+      child: OKToast(
+        child: Sizer(
+          builder: (context, orientation, deviceType) {
+            return MaterialApp(
+              debugShowCheckedModeBanner: false,
+              initialRoute: AppRouter.home,
+              onGenerateRoute: AppRouter.onGenerateRoute,
+              title: appTitle,
+              theme: AppTheme.lightTheme,
+              builder: EasyLoading.init(),
+            );
+          },
+        ),
+      ),
     );
   }
 }
@@ -72,5 +91,3 @@ void configLoading() {
     ..maskType = EasyLoadingMaskType.black
     ..dismissOnTap = true;
 }
-
-
