@@ -36,8 +36,8 @@ class _ProductDetailsViewState extends State<ProductDetailsView> {
         foregroundColor: Colors.black,
         backgroundColor: Colors.white,
         actions: [
-          IconButton(onPressed: (){}, icon: Icon(Icons.message)),
-          IconButton(onPressed: (){}, icon: Icon(Icons.share)),
+          IconButton(onPressed: () {}, icon: Icon(Icons.message)),
+          IconButton(onPressed: () {}, icon: Icon(Icons.share)),
         ],
       ),
       body: ListView(
@@ -56,36 +56,41 @@ class _ProductDetailsViewState extends State<ProductDetailsView> {
                     setState(() {
                       _currentIndex = index;
                     });
-                  }
+                  },
                 ),
                 items: widget.product.images.map((image) {
                   return Builder(
-                      builder: (BuildContext context) {
-                        return Hero(
-                            tag: widget.product.id,
-                            child: CachedNetworkImage(
-                              imageUrl: image,
-                              imageBuilder: (context, imageProvider) => Container(
-                                decoration: BoxDecoration(
-                                  image: DecorationImage(
-                                      image: imageProvider,
-                                    fit: BoxFit.contain,
-                                    colorFilter: ColorFilter.mode(Colors.grey.shade50.withOpacity(0.5), BlendMode.softLight)
-                                  )
+                    builder: (BuildContext context) {
+                      return Hero(
+                        tag: widget.product.id,
+                        child: CachedNetworkImage(
+                          imageUrl: image,
+                          imageBuilder: (context, imageProvider) => Container(
+                            decoration: BoxDecoration(
+                              image: DecorationImage(
+                                image: imageProvider,
+                                fit: BoxFit.contain,
+                                colorFilter: ColorFilter.mode(
+                                  Colors.grey.shade50.withOpacity(0.5),
+                                  BlendMode.softLight,
                                 ),
                               ),
-                              placeholder: (context, url) => Container(
-                                decoration: BoxDecoration(color: Colors.grey.shade100),
-                              ),
-                              errorWidget: (context, url, error) => const Center(
-                                child: Icon(
-                                  Icons.error_outline,
-                                  color: Colors.grey,
-                                ),
-                              ),
-                            )
-                        );
-                      }
+                            ),
+                          ),
+                          placeholder: (context, url) => Container(
+                            decoration: BoxDecoration(
+                              color: Colors.grey.shade100,
+                            ),
+                          ),
+                          errorWidget: (context, url, error) => const Center(
+                            child: Icon(
+                              Icons.error_outline,
+                              color: Colors.grey,
+                            ),
+                          ),
+                        ),
+                      );
+                    },
                   );
                 }).toList(),
               ),
@@ -105,47 +110,58 @@ class _ProductDetailsViewState extends State<ProductDetailsView> {
                   dotHeight: 6,
                   dotWidth: 6,
                   activeDotScale: 1.1,
-                  spacing: 6
+                  spacing: 6,
                 ),
               ),
             ),
           ),
           Padding(
-            padding: const EdgeInsets.only(left: 20, right: 14, top: 20, bottom: 4),
-            child: Text(widget.product.name, style: TextStyle(fontSize: 22, fontWeight: FontWeight.w500),),
-          ),
-          Padding(
             padding: const EdgeInsets.only(
               left: 20,
-              right: 20,
+              right: 14,
+              top: 20,
+              bottom: 4,
             ),
+            child: Text(
+              widget.product.name,
+              style: TextStyle(fontSize: 22, fontWeight: FontWeight.w500),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(left: 20, right: 20),
             child: Wrap(
-              children: widget.product.priceTags.map((priceTag) => GestureDetector(
-                onTap: () {
-                  setState(() {
-                    _selectedPriceTag = priceTag;
-                  });
-                },
-                child: Container(
-                  decoration: BoxDecoration(
-                    border: Border.all(
-                      width: _selectedPriceTag.id == priceTag.id
-                          ? 2.0
-                          : 1.0,
-                      color: Colors.grey,
+              children: widget.product.priceTags
+                  .map(
+                    (priceTag) => GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          _selectedPriceTag = priceTag;
+                        });
+                      },
+                      child: Container(
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                            width: _selectedPriceTag.id == priceTag.id
+                                ? 2.0
+                                : 1.0,
+                            color: Colors.grey,
+                          ),
+                          borderRadius: const BorderRadius.all(
+                            Radius.circular(5.0),
+                          ),
+                        ),
+                        padding: const EdgeInsets.all(8),
+                        margin: const EdgeInsets.only(right: 4),
+                        child: Column(
+                          children: [
+                            Text(priceTag.name),
+                            Text("Kshs. ${priceTag.price.toString()}"),
+                          ],
+                        ),
+                      ),
                     ),
-                    borderRadius: const BorderRadius.all(Radius.circular(5.0)),
-                  ),
-                  padding: const EdgeInsets.all(8),
-                  margin: const EdgeInsets.only(right: 4),
-                  child: Column(
-                    children: [
-                      Text(priceTag.name),
-                      Text("Kshs. ${priceTag.price.toString()}"),
-                    ],
-                  ),
-                ),
-              )).toList(),
+                  )
+                  .toList(),
             ),
           ),
           Padding(
@@ -153,7 +169,7 @@ class _ProductDetailsViewState extends State<ProductDetailsView> {
               left: 20,
               right: 10,
               top: 16,
-              bottom: MediaQuery.of(context).padding.bottom
+              bottom: MediaQuery.of(context).padding.bottom,
             ),
             child: Text(
               widget.product.description,
@@ -163,13 +179,13 @@ class _ProductDetailsViewState extends State<ProductDetailsView> {
         ],
       ),
       bottomNavigationBar: Container(
-        color: Theme.of(context).colorScheme.secondary,
+        color: Theme.of(context).colorScheme.primary,
         height: 80 + MediaQuery.of(context).padding.bottom,
         padding: EdgeInsets.only(
           bottom: MediaQuery.of(context).padding.bottom + 10,
           top: 10,
           left: 20,
-          right: 20
+          right: 20,
         ),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -185,41 +201,55 @@ class _ProductDetailsViewState extends State<ProductDetailsView> {
                 ),
                 Text(
                   'Kshs. ${_selectedPriceTag.price}',
-                  style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),
-                )
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
               ],
             ),
             const Spacer(),
             SizedBox(
               width: 120,
               child: InputFormButton(
-                onClick: (){
-                  context.read<CartBloc>().add(AddProduct(
-                      cartItem: CartItem(product: widget.product, priceTag: _selectedPriceTag)
-                  ));
+                onClick: () {
+                  context.read<CartBloc>().add(
+                    AddProduct(
+                      cartItem: CartItem(
+                        product: widget.product,
+                        priceTag: _selectedPriceTag,
+                      ),
+                    ),
+                  );
                   Navigator.of(context).pop();
                 },
                 titleText: "Add to Cart",
-                color: Colors.black87,
+                color: Colors.amberAccent.shade700,
               ),
             ),
-            const SizedBox(width: 6,),
+            const SizedBox(width: 6),
             SizedBox(
               width: 90,
               child: InputFormButton(
-                onClick: (){
-                  Navigator.of(context).pushNamed(AppRouter.orderCheckout, arguments: [
-                    CartItem(product: widget.product, priceTag: _selectedPriceTag)
-                  ]);
+                onClick: () {
+                  Navigator.of(context).pushNamed(
+                    AppRouter.orderCheckout,
+                    arguments: [
+                      CartItem(
+                        product: widget.product,
+                        priceTag: _selectedPriceTag,
+                      ),
+                    ],
+                  );
                 },
                 titleText: "Buy",
                 color: Colors.black87,
               ),
-            )
+            ),
           ],
         ),
       ),
     );
   }
 }
-

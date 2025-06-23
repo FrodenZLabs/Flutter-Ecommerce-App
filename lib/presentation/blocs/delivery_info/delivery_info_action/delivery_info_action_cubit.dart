@@ -36,11 +36,13 @@ class DeliveryInfoActionCubit extends Cubit<DeliveryInfoActionState> {
     try {
       emit(DeliveryInfoActionLoading());
       final result = await _editDeliveryInfoUsecase(params);
+      debugPrint("Delivery Info Cubit: $result");
       result.fold(
         (failure) => emit(DeliveryInfoActionFail()),
         (deliveryInfo) => emit(DeliveryInfoEditActionSuccess(deliveryInfo)),
       );
     } catch (e) {
+      debugPrint("Error: $e");
       emit(DeliveryInfoActionFail());
     }
   }

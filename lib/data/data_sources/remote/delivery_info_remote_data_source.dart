@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_ecommerce_app/core/constant/strings.dart';
 import 'package:flutter_ecommerce_app/core/error/exceptions.dart';
 import 'package:flutter_ecommerce_app/data/models/user/delivery_info_model.dart';
@@ -5,8 +6,14 @@ import 'package:http/http.dart' as http;
 
 abstract class DeliveryInfoRemoteDataSource {
   Future<List<DeliveryInfoModel>> getDeliveryInfo(String token);
-  Future<DeliveryInfoModel> addDeliveryInfo(DeliveryInfoModel params, String token);
-  Future<DeliveryInfoModel> editDeliveryInfo(DeliveryInfoModel params, String token);
+  Future<DeliveryInfoModel> addDeliveryInfo(
+    DeliveryInfoModel params,
+    String token,
+  );
+  Future<DeliveryInfoModel> editDeliveryInfo(
+    DeliveryInfoModel params,
+    String token,
+  );
 }
 
 class DeliveryInfoRemoteDataSourceImpl implements DeliveryInfoRemoteDataSource {
@@ -14,8 +21,12 @@ class DeliveryInfoRemoteDataSourceImpl implements DeliveryInfoRemoteDataSource {
   DeliveryInfoRemoteDataSourceImpl({required this.client});
 
   @override
-  Future<DeliveryInfoModel> addDeliveryInfo(DeliveryInfoModel params, String token) async {
-    final response = await client.post(Uri.parse('$baseUrl/users/delivery-info'),
+  Future<DeliveryInfoModel> addDeliveryInfo(
+    DeliveryInfoModel params,
+    String token,
+  ) async {
+    final response = await client.post(
+      Uri.parse('$baseUrl/users/delivery-info'),
       headers: {
         'Content-Type': 'application/json',
         'Authorization': 'Bearer $token',
@@ -23,16 +34,21 @@ class DeliveryInfoRemoteDataSourceImpl implements DeliveryInfoRemoteDataSource {
       body: deliveryInfoModelToJson(params),
     );
 
+    // debugPrint("Response: ${response.statusCode}");
     if (response.statusCode == 200) {
       return deliveryInfoModelFromRemoteJson(response.body);
-    }  else {
+    } else {
       throw ServerExceptions();
     }
   }
 
   @override
-  Future<DeliveryInfoModel> editDeliveryInfo(DeliveryInfoModel params, String token) async {
-    final response = await client.put(Uri.parse('$baseUrl/users/delivery-info'),
+  Future<DeliveryInfoModel> editDeliveryInfo(
+    DeliveryInfoModel params,
+    String token,
+  ) async {
+    final response = await client.put(
+      Uri.parse('$baseUrl/users/delivery-info'),
       headers: {
         'Content-Type': 'application/json',
         'Authorization': 'Bearer $token',
@@ -40,16 +56,19 @@ class DeliveryInfoRemoteDataSourceImpl implements DeliveryInfoRemoteDataSource {
       body: deliveryInfoModelToJson(params),
     );
 
+    debugPrint("Response: $response.body");
     if (response.statusCode == 200) {
       return deliveryInfoModelFromRemoteJson(response.body);
-    }  else {
+    } else {
+      debugPrint("Server error");
       throw ServerExceptions();
     }
   }
 
   @override
   Future<List<DeliveryInfoModel>> getDeliveryInfo(String token) async {
-    final response = await client.get(Uri.parse('$baseUrl/delivery-info'),
+    final response = await client.get(
+      Uri.parse('$baseUrl/delivery-info'),
       headers: {
         'Content-Type': 'application/json',
         'Authorization': 'Bearer $token',
@@ -58,7 +77,7 @@ class DeliveryInfoRemoteDataSourceImpl implements DeliveryInfoRemoteDataSource {
 
     if (response.statusCode == 200) {
       return deliveryInfoModelListFromRemoteJson(response.body);
-    }  else {
+    } else {
       throw ServerExceptions();
     }
   }

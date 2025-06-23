@@ -41,10 +41,7 @@ class OrderCheckoutView extends StatelessWidget {
           }
         },
         child: Scaffold(
-          appBar: AppBar(
-            backgroundColor: Colors.white,
-            title: const Text("Order Checkout"),
-          ),
+          appBar: AppBar(title: const Text("Order Checkout")),
           body: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: ListView(
@@ -203,7 +200,7 @@ class OrderCheckoutView extends StatelessWidget {
                           children: [
                             const Text("Total Price"),
                             Text(
-                              "Kshs. ${items.fold(0.0, (previousValue, element) => (element.priceTag.price * previousValue))}",
+                              "Kshs. ${items.fold(0.0, (previousValue, element) => (element.priceTag.price + previousValue))}",
                             ),
                           ],
                         ),
@@ -211,7 +208,7 @@ class OrderCheckoutView extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text("Delivery Charge"),
-                            Text("Kshs. 1999"),
+                            Text("Kshs. 200"),
                           ],
                         ),
                         Row(
@@ -219,7 +216,7 @@ class OrderCheckoutView extends StatelessWidget {
                           children: [
                             const Text("Total"),
                             Text(
-                              "Kshs. ${items.fold(0.0, (previousValue, element) => (element.priceTag.price * previousValue)) + 4.99}",
+                              "Kshs. ${items.fold(0.0, (previousValue, element) => (element.priceTag.price + previousValue)) + 200}",
                             ),
                           ],
                         ),
